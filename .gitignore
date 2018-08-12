@@ -1,0 +1,4 @@
+*.pyc
+*.png
+*.h5
+generated_images/
