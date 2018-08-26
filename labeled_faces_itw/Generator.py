@@ -11,17 +11,21 @@ from keras.layers.convolutional import Conv2D, MaxPooling2D
 
 
 class Generator:
+    feature_depth = 512
     def __init__(self):
 
         model = Sequential()
-        model.add(Dense(input_dim=100, units=1024 * 8 * 8))
-        model.add(Reshape((8, 8, 1024), input_shape=(1024*8*8,)))
+        model.add(Dense(input_dim=100, units=self.feature_depth * 16 * 16))
+        model.add(Reshape((16, 16, self.feature_depth),
+                          input_shape=(self.feature_depth * 16 * 16,),))
         model.add(BatchNormalization())
         model.add(Activation('relu'))
+
         model.add(UpSampling2D((2, 2)))
-        model.add(Conv2D(512, (5, 5), padding='same'))
+        model.add(Conv2D(64, (5, 5), padding='same'))
         model.add(BatchNormalization())
         model.add(Activation('relu'))
+
         model.add(UpSampling2D((2, 2)))
         model.add(Conv2D(3, (5, 5), padding='same'))
         model.add(Activation('tanh'))
