@@ -21,6 +21,9 @@ class Trainer:
         # load train datasets
         (X_train, Y_train), (_, _) = mnist.load_data()
 
+        print(type(X_train))
+        print(X_train.shape)
+
         X_train = (X_train.astype(np.float32) - 127.5) / 127.5
         X_train = X_train.reshape(X_train.shape[0], X_train.shape[1], X_train.shape[2], 1)
 
