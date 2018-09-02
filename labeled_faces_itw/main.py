@@ -27,19 +27,32 @@ def _find_all_files_with_ext(dir, ext):
 if __name__ == "__main__":
     files = list(_find_all_files_with_ext("../../../data/lfw", "jpg"))
 
+    
+    dataset = np.ndarray((0, 64, 64, 3))
+
+    print(dataset)
+    print(dataset.shape)
+    
     for file_name in files:
         image = cv2.imread(file_name)
-        cv2.imshow("img", image)
-        print(type(image))
-        print(image.shape)
-        cv2.waitKey(1)
-    
-    # options = parse_arg()
-    # print(options.mode)
 
-    # if options.mode == "train":
-    #     trainer = Trainer()
-    #     trainer.train()
+        resized_image = cv2.resize(image[50: 200, 50: 200], (64, 64))
+        # cv2.imshow("img", resized_image)
+
+        resized_image = np.reshape(resized_image, (1, 64, 64, 3))
+        
+        # print(resized_image.shape)
+
+        dataset = np.concatenate((dataset, resized_image), axis=0)
+        print(dataset.shape)
+
+    print(dataset.shape)
+    options = parse_arg()
+    print(options.mode)
+
+    if options.mode == "train":
+        trainer = Trainer()
+        trainer.train(dataset)
 
     # if options.mode == "generate":
     #     generator = Generator()

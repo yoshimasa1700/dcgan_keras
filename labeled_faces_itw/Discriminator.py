@@ -12,17 +12,14 @@ from keras.layers.convolutional import Conv2D, MaxPooling2D
 class Discriminator:
     def __init__(self):
         model = Sequential()
-        model.add(Conv2D(64, (5, 5),
+        model.add(Conv2D(256, (5, 5),
                    padding='same',
-                   input_shape=(32, 32, 3)))
+                   input_shape=(64, 64, 3)))
         model.add(LeakyReLU(0.2))
         model.add(Conv2D(128, (5, 5)))
         model.add(LeakyReLU(0.2))
         model.add(Flatten())
-        model.add(Dense(256))
-        model.add(LeakyReLU(0.2))
-        model.add(Dropout(0.5))
-        model.add(Dense(256))
+        model.add(Dense(128))
         model.add(LeakyReLU(0.2))
         model.add(Dropout(0.5))
         model.add(Dense(1))
